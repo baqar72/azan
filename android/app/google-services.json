@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "339774650349",
+    "project_id": "azan-5d7de",
+    "storage_bucket": "azan-5d7de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339774650349:android:d8e93f6c01694783c559e4",
+        "android_client_info": {
+          "package_name": "com.example.azan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRIUU1PfhRBSDb4CVDviSTAW4KnDqWDGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
