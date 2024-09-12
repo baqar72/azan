@@ -13,6 +13,12 @@ class AuthController extends GetxController {
   var verificationId = ''.obs;
   var isLoading = false.obs;
   var authStatus = ''.obs;
+  String pageType = 'login';
+  void changePage(String page){
+    pageType = page;
+    update();
+  }
+
 
   User? get currentUser => _auth.currentUser;
 
@@ -20,7 +26,7 @@ class AuthController extends GetxController {
   void phoneSignIn(String phoneNumber) async {
     isLoading(true);
     await _auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
+      phoneNumber: "+91$phoneNumber",
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) async {
         await _auth.signInWithCredential(credential);
@@ -40,9 +46,9 @@ class AuthController extends GetxController {
         this.verificationId.value = verificationId;
         authStatus('Verification code sent to $phoneNumber');
         isLoading(false);
-
+        changePage('otp');
         // Navigate to the OTP Page after code is sent
-        Get.to(() => OtpPage(phoneNumber: phoneNumber));
+        // Get.to(() => OtpPage(phoneNumber: phoneNumber));
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         this.verificationId.value = verificationId;

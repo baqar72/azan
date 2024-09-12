@@ -48,7 +48,7 @@ class PhoneSignInPage extends StatelessWidget {
             Text('or',textAlign: TextAlign.center,),
             SizedBox(height: 10,),
             TextButton(onPressed: (){
-              Get.to(()=> SignUpView(controller: authController,));
+              // Get.to(()=> SignUpView());
             }, child: const Text("Sign in with Email and Password")),
             // ElevatedButton(onPressed: (){
             //   authController.signInWithEmail('faiznaqvi68@gmail.com',"password",);

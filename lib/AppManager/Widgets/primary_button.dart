@@ -1,3 +1,4 @@
+import 'package:azan/AppManager/Constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatefulWidget {
@@ -72,11 +73,11 @@ class _PrimaryButtonState extends State<PrimaryButton>
       child: ScaleTransition(
         scale: _scaleAnimation,
         child: Container(
-          width: widget.width,
+          width: widget.width??double.infinity,
           height: widget.height,
           padding: widget.padding,
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: AppColor.mustardColor,
             // gradient:  LinearGradient(colors: [
             //   Colors.black,
             //   Colors.grey,

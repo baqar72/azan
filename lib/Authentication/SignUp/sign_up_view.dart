@@ -1,37 +1,51 @@
+import 'package:azan/AppManager/Constants/app_colors.dart';
+import 'package:azan/AppManager/Constants/text_theme.dart';
 import 'package:azan/AppManager/Widgets/primary_button.dart';
 import 'package:azan/AppManager/Widgets/primary_textfield.dart';
+import 'package:azan/Authentication/SignUp/sign_up_controller.dart';
 import 'package:azan/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignUpView extends StatelessWidget {
-  final AuthController controller;
-  const SignUpView({super.key, required this.controller});
+  final AuthController authController;
+  const SignUpView({super.key, required this.authController,});
 
   @override
   Widget build(BuildContext context) {
-    final nameC = TextEditingController();
-    final emailC = TextEditingController();
-    final passwordC = TextEditingController();
-    return Scaffold(
-      appBar: AppBar(title: Text('Sign Up'),),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-             PrimaryTextField(hintText: 'Enter Name',controller: nameC,),
-            const SizedBox(height: 15,),
-             PrimaryTextField(hintText: 'Enter Email',controller: emailC,),
-            const SizedBox(height: 15,),
-             PrimaryTextField(hintText: 'Enter Password',controller: passwordC,),
-            const SizedBox(height: 25,),
-            PrimaryButton(text: 'Sign Up', onPressed: () {
-              controller.registerWithEmail(emailC.text,passwordC.text,nameC.text);
-            },)
-          ],
+    SignUpController controller = Get.put(SignUpController());
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Setup your Account',
+          style:
+          context.text22!.copyWith(color: AppColor.white),
         ),
-      ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          "Create your username",
+          style: context.text12
+              ?.copyWith(color: AppColor.mustardColor),
+        ),
+        const SizedBox(
+          height: 50,
+        ),
+        Text(
+          'Enter User Name',
+          style:
+          context.text14?.copyWith(color: AppColor.white),
+        ),
+         CustomTextFormField(leadingWidget: Icon(Icons.person_outline,color: Colors.grey,),
+          controller: controller.nameC,
+          hintText: 'Enter Name',),
+        const SizedBox(height: 50,),
+        PrimaryButton(text: 'Submit', onPressed: (){
+          authController.changePage('location');
+        },)
+      ],
     );
   }
 }

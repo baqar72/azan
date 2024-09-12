@@ -239,3 +239,70 @@ class _PrimaryTextFieldState extends State<PrimaryTextField> {
   }
 
 }
+
+
+
+
+class CustomTextFormField extends StatelessWidget {
+  final Widget? leadingWidget;
+  final String? hintText;
+  final TextStyle hintStyle;
+  final TextEditingController? controller;
+  final BoxDecoration? boxDecoration;
+  final TextInputType keyboardType;
+  final double? width;
+
+  const CustomTextFormField({super.key,
+     this.leadingWidget,
+    this.hintText, // Default hintText
+    this.hintStyle = const TextStyle(color: Colors.white24), // Default hintStyle
+    this.controller,
+    this.boxDecoration,
+    this.keyboardType = TextInputType.text, this.width, // Default keyboard type to phone
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+       width:width?? double.infinity,
+      height: 50,
+       padding: EdgeInsets.symmetric(horizontal: 15),
+      decoration: boxDecoration ??
+          BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: RadialGradient(
+              colors: [
+                Color(0xFFFFFFFF).withOpacity(0.1),
+                Color(0xFFFFFFFF).withOpacity(0.0224),
+                Color(0xFFFFFFFF).withOpacity(0.0),
+              ],
+              radius: 8.0,
+            ),
+            border: Border.all(
+              color: Colors.white70,
+              width: 1,
+            ),
+          ),
+      child: Row(
+        children: [
+          if(leadingWidget!=null)
+          leadingWidget!, // The leading widget (icon, dropdown, etc.)
+          const SizedBox(width: 10),
+          Expanded(
+            child: TextFormField(
+              keyboardType: keyboardType,
+              controller: controller,
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: hintStyle,
+                border: InputBorder.none, // Remove default border
+              ),
+              style: const TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
