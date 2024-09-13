@@ -1,8 +1,8 @@
 import 'package:azan/AppManager/Constants/app_colors.dart';
 import 'package:azan/AppManager/LocalStorage/ObjectBoxService/object_box_service.dart';
 import 'package:azan/Authentication/LogIn/login.dart';
-import 'package:azan/Dashboard/dashboard_view.dart';
-import 'package:azan/Dashboard/new_log.dart';
+import 'package:azan/Authentication/LogIn/new_log.dart';
+import 'package:azan/DashBoard/dashboardView.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -52,7 +52,7 @@ class AppPages {
     ),
     GetPage(
       name: '/dashboard',
-      page: () => const DashboardView(),
+      page: () => const DashBoardView(),
     ),
   ];
 }

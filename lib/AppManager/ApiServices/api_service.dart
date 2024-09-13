@@ -9,22 +9,18 @@ class ApiService {
   static ApiService? _instance;
   final Logger _logger = Logger();
 
-  // Private constructor to restrict instantiation from outside
   ApiService._internal();
 
-  // Public factory constructor to return the same instance every time
   factory ApiService() {
     _instance ??= ApiService._internal();
     return _instance!;
   }
 
-  // GET request with optional custom base URL
   Future<dynamic> get(String endpoint, {String? customBaseUrl, Map<String, String>? headers}) async {
     final url = customBaseUrl ?? _defaultBaseUrl;
     return await _sendRequest(() => http.get(Uri.parse('$url$endpoint'), headers: headers));
   }
 
-  // Unified request handling with retries and logging
   Future<dynamic> _sendRequest(Future<http.Response> Function() request, {int retries = 3}) async {
     int attempt = 0;
     while (attempt < retries) {

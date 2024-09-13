@@ -12,7 +12,6 @@ class ObjectBoxService {
     _prepareQueries();
   }
 
-  // Check if there are any users stored
   bool hasAnyUser() {
     return _userBox.count() > 0;
   }
@@ -24,27 +23,22 @@ class ObjectBoxService {
   }
 
   void _prepareQueries() {
-    // Pre-build the query to find a user by UID
     _getUserByUidQuery = _userBox.query(User_.uid.equals('')).build();
   }
 
-  // Save a new user to the local database
   Future<int> saveUser(User user) async {
     return _userBox.put(user);
   }
 
-  // Get a user by UID
   User? getUserByUid(String uid) {
     _getUserByUidQuery.param(User_.uid).value = uid;
     return _getUserByUidQuery.findFirst();
   }
 
-  // Get all users
   List<User> getAllUsers() {
     return _userBox.getAll();
   }
 
-  // Delete a user by UID
   void deleteUserByUid(String uid) {
     _getUserByUidQuery.param(User_.uid).value = uid;
     final user = _getUserByUidQuery.findFirst();
@@ -53,7 +47,6 @@ class ObjectBoxService {
     }
   }
 
-  // Update user details
   Future<void> updateUser(User updatedUser) async {
     final user = getUserByUid(updatedUser.uid);
     if (user != null) {
@@ -64,12 +57,10 @@ class ObjectBoxService {
     }
   }
 
-  // Clear all users from the database
   void clearAllUsers() {
     _userBox.removeAll();
   }
 
-  // Close the store when done
   void closeStore() {
     _getUserByUidQuery.close(); // Close the query when done
     _store.close();

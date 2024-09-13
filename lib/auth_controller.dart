@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:azan/AppManager/LocalStorage/Entity/user_model.dart' as user;
 import 'package:azan/Authentication/LogIn/otp_view.dart';
-import 'package:azan/Dashboard/dashboard_view.dart';
+import 'package:azan/DashBoard/dashboardView.dart';
 import 'package:azan/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -71,11 +74,11 @@ class AuthController extends GetxController {
 
       // After OTP verification, store user info in Firestore
       if (_auth.currentUser != null) {
-        storeUserData(name: "User Name", email: "user@example.com", phone: _auth.currentUser!.phoneNumber);
+        // storeUserData(name: "User Name", email: "user@example.com", phone: _auth.currentUser!.phoneNumber);
       }
-
+      changePage('signup');
       // Navigate to the desired page after successful sign-in
-       Get.offAll(() => const DashboardView()); // Replace HomePage with your target page
+      //  Get.offAll(() => const DashboardView()); // Replace HomePage with your target page
     } catch (e) {
       authStatus('Failed to sign in: $e');
     } finally {
@@ -94,7 +97,7 @@ class AuthController extends GetxController {
 
       if (userCredential.user != null) {
         authStatus('Signed in with email successfully');
-         Get.offAll(() => DashboardView()); // Replace HomePage with your target page
+         Get.offAll(() => DashBoardView()); // Replace HomePage with your target page
       }
     } on FirebaseAuthException catch (e) {
       authStatus('Failed to sign in with email: ${e.message}');
@@ -125,7 +128,7 @@ class AuthController extends GetxController {
         await objectBoxService.saveUser(userData);
 
         authStatus('Registered with email successfully');
-         Get.offAll(() => const DashboardView()); // Replace HomePage with your target page
+         Get.offAll(() => const DashBoardView()); // Replace HomePage with your target page
       }
     } on FirebaseAuthException catch (e) {
       authStatus('Failed to register with email: ${e.message}');
@@ -197,4 +200,52 @@ class AuthController extends GetxController {
       print('Failed to delete user data: $e');
     }
   }
+///////////////new
+  RxDouble containerHeight = 400.0.obs;
+  RxInt step = 0.obs;
+  dynamicHeightAllocation(){
+    step.value = step.value +1;
+    print(" STEP VALUE ${step.value}");
+    if(step.value == 1){
+      containerHeight.value = 350;
+    }
+    else if(step.value==2){
+      containerHeight.value=  400;
+    }
+    else if(step.value==3){
+      containerHeight.value=250;
+    }
+    else if(step.value==4){
+      containerHeight.value=300;
+    }
+    update();
+  }
+  RxBool isOtpFilled = false.obs;
+  RxBool isOtpVerified = false.obs;
+  RxBool showThirdContainer = false.obs;
+  RxBool showFourthContainer = false.obs;
+  var selectedGender = "Male".obs;
+  void updateGender(String gender){
+    selectedGender.value=gender;
+  }
+  RxBool showSecondContainer = false.obs;
+  void toggleSecondContainer() {
+    showSecondContainer.value = !showSecondContainer.value;
+  }
+  void toggleThirdContainer() {
+    showThirdContainer.value = !showThirdContainer.value;
+  }
+  void toggleFourthContainer() {
+    showFourthContainer.value = !showFourthContainer.value;
+  }
+  RxInt secondsLeft = 60.obs;
+  late Timer _timer;
+  void verifyOtp(String code) {
+    if (code.length == 6) {
+      isOtpVerified.value = true;
+      showThirdContainer.value = true;
+    }
+
+}
+  final Rx<TextEditingController> phoneController = TextEditingController().obs;
 }

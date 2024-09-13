@@ -34,7 +34,8 @@ class OtpPage extends StatelessWidget {
         Center(
             child: OTPTextField(onCompleted: (String value) {
               print("value $value");
-              authController.changePage('signup');
+              authController.verifyOTP(value);
+              // authController.changePage('signup');
             },length: 6,)
         ),
 
